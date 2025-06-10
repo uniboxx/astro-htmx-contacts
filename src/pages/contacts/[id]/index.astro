@@ -1,0 +1,22 @@
+---
+import Contatti from '@/data/contacts';
+import Layout from '@/layouts/Layout.astro';
+const id = Number(Astro.params.id);
+const contact = Contatti.get(id);
+// console.log(contact);
+---
+
+<Layout title=`Contact ${id}`>
+  <div id="contact-details">
+    <h1>Contact Details</h1>
+    <div class="contact">
+      <p>Name: <span>{contact?.first}</span></p>
+      <p>LastName: <span>{contact?.last}</span></p>
+      <p>Phone: <span>{contact?.phone}</span></p>
+      <p>Email: <span>{contact?.email}</span></p>
+    </div>
+    <a href="/contacts">&larr; Back</a>
+  </div>
+</Layout>
+
+<style is:global></style>

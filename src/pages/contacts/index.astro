@@ -1,0 +1,65 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Contatti from '@/data/contacts';
+
+const search = Astro.url.searchParams.get('q')?.toLowerCase();
+let contacts;
+if (search) {
+  contacts = Contatti.getAll().filter((contact) => {
+    const {first:f,last:l,email:e}=contact;
+    return (
+      f.toLowerCase().includes(search) ||
+      l.toLowerCase().includes(search) ||
+      e.toLowerCase().includes(search)
+    );
+  });
+} else {
+  contacts = Contatti.getAll();
+}
+// console.log(contacts);
+---
+
+<Layout title="contacts">
+    <h1>Contacts</h1>
+    <form id="searchForm" action="/contacts">
+      <label for="search"
+      >Search Term
+      <input id="search" type="search" name="q" value={search} autofocus /></label
+    >
+    <button>Search</button>
+  </form>
+  {!contacts.length && <h2>No results found</h2>}
+  {
+    contacts && contacts.length > 0 && (
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts.map((contact) => (
+            <tr>
+              <td>{contact.first}</td>
+              <td>{contact.last}</td>
+              <td>{contact.phone}</td>
+              <td>{contact.email}</td>
+              <td class="actions">
+                <a href={`/contacts/${contact.id}`}>View</a>
+                <a href={`/contacts/${contact.id}/edit`}>Edit</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <a href="/contacts/new">Add new contact &rarr;</a>
+    )
+  }
+
+</Layout>
+
+

@@ -1,0 +1,83 @@
+---
+import { type Contact } from '@/data/contacts';
+interface Props {
+  action: string;
+  contact?: Contact;
+}
+const { action, contact } = Astro.props;
+
+console.log(contact);
+---
+
+<form id="contactForm" action={action} method="POST">
+  <label for="first">
+    FirstName
+    <input
+      type="text"
+      id="first"
+      name="first"
+      required
+      value={contact?.first}
+      autofocus
+    />
+  </label>
+  <label for="last">
+    LastName
+    <input type="text" id="last" name="last" required value={contact?.last} />
+  </label>
+  <label for="phone">
+    Phone
+    <input
+      type="text"
+      id="phone"
+      name="phone"
+      required
+      value={contact?.phone}
+    />
+  </label>
+
+  <label for="email">
+    Email
+    <input
+      type="text"
+      id="email"
+      name="email"
+      required
+      value={contact?.email}
+    />
+  </label>
+
+  <div class="actions">
+    {
+      contact ? (
+        <button
+          style="background-color:orangered;cursor:pointer;"
+          hx-confirm="Are you sure to delete this contact?"
+          hx-delete={`/api/${contact?.id}/delete`}
+          hx-swap="none"
+        >
+          Delete
+        </button>
+      ) : (
+        <a href="/contacts">Cancel</a>
+      )
+    }
+    <button hx-put=`/api/${contact?.id}/update`>Save</button>
+  </div>
+</form>
+<div class="error">
+  <p>Invalid email</p>
+</div>
+
+<style></style>
+
+<script>
+  const form = document.querySelector('form')!;
+  const error = document.querySelector('.error') as HTMLDivElement;
+
+  form?.addEventListener('submit', (e) => {
+    if (!form.email.value.includes('@')) {
+      error.style.display = 'block';
+    }
+  });
+</script>

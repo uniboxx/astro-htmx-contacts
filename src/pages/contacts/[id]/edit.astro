@@ -1,0 +1,24 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Contatti from '@/data/contacts';
+import ContactForm from '@/components/ContactForm.astro';
+
+const id = Number(Astro.params.id);
+const contact = Contatti.get(id);
+
+// console.log(id);
+// console.log(contact);
+---
+
+<Layout title="edit contact">
+  <div id="edit-contact">
+    <h1>Edit contact</h1>
+    {
+      contact && contact.id ? (
+        <ContactForm action="ciao" contact={contact} />
+      ) : (
+        <h2>Contact not found</h2>
+      )
+    }
+  </div>
+</Layout>
