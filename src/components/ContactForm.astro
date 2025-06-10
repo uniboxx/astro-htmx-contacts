@@ -84,24 +84,3 @@ console.log(statusText);
     }
   </div>
 </form>
-
-<style></style>
-
-<script>
-  const form = document.querySelector('form')!;
-  const email = form.querySelector('#email');
-  const error = document.querySelector('.error') as HTMLDivElement;
-
-  form?.addEventListener('submit', (e) => {
-    if (!form.email.value.includes('@')) {
-      error.classList.add('show');
-      email?.addEventListener('input', () => {
-        if (form.email.value.includes('@')) {
-          error.classList.remove('show');
-        } else {
-          error.classList.add('show');
-        }
-      });
-    }
-  });
-</script>

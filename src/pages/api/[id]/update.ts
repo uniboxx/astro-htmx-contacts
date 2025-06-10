@@ -11,6 +11,9 @@ export async function PUT(ctx: APIContext) {
     if (isNaN(id)) {
       return new Response(null, { status: 400, statusText: 'Bad Request' });
     }
+    if (!contact.email.toString().includes('@')) {
+      return new Response(null, { status: 401, statusText: 'Email not valid' });
+    }
 
     Contatti.update(id, contact);
     return new Response(null, {
