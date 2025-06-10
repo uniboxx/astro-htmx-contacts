@@ -3,13 +3,14 @@ import { type Contact } from '@/data/contacts';
 interface Props {
   action: string;
   contact?: Contact;
+  method?:string;
 }
-const { action, contact } = Astro.props;
+const { action, contact, method } = Astro.props;
 
 console.log(contact);
 ---
 
-<form id="contactForm" action={action} method="POST">
+<form id="contactForm" action={action} method={method}>
   <label for="first">
     FirstName
     <input
@@ -62,7 +63,10 @@ console.log(contact);
         <a href="/contacts">Cancel</a>
       )
     }
-    <button hx-put=`/api/${contact?.id}/update`>Save</button>
+    {contact && contact.id ? 
+    <button hx-put=`/api/${contact?.id}/update`>Save</button>:
+    <button hx-post=`/api/add`>Save</button>
+    }
   </div>
 </form>
 <div class="error">
