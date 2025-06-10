@@ -10,6 +10,8 @@ const regex = /\/edit$/;
 const isEdit = regex.test(Astro.url.pathname);
 // console.log(isEdit);
 // console.log(contact);
+const statusText = Astro.response.statusText;
+console.log(statusText);
 ---
 
 <form id="contactForm" action={action} method={method}>
