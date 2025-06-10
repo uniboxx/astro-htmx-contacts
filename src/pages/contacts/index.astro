@@ -30,7 +30,11 @@ if (search) {
       <input id="search" type="search" name="q" value={search} autofocus />
     <button>Search</button>
   </form>
-  {!contacts.length && <h2>No results found</h2>}
+  {!contacts.length && <h2>No results found</h2>
+  <div class="actions">
+  <Button href="/contacts">&larr; Back</Button>
+  </div>
+  }
   {
     contacts && contacts.length > 0 && (
       <div id="table-responsive">
