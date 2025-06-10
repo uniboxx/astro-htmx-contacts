@@ -39,6 +39,7 @@ body {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+  padding: 0 5px;
 }
 
 a {
@@ -229,9 +230,11 @@ footer {
   width: 100%;
   border-top: 1px solid var(--foreground);
   padding: 40px 0;
+  max-width: 800px;
+  margin: 0 auto;
   p {
-    text-align: center;
     font-size: 0.9rem;
-    line-height: 0.9;
+    margin: 0.5rem;
+    color: #777;
   }
 }
