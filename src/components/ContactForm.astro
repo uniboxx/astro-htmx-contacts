@@ -3,11 +3,13 @@ import { type Contact } from '@/data/contacts';
 interface Props {
   action: string;
   contact?: Contact;
-  method?:string;
+  method?: string;
 }
 const { action, contact, method } = Astro.props;
-
-console.log(contact);
+const regex = /\/edit$/;
+const isEdit = regex.test(Astro.url.pathname);
+// console.log(isEdit);
+// console.log(contact);
 ---
 
 <form id="contactForm" action={action} method={method}>
@@ -18,13 +20,19 @@ console.log(contact);
       id="first"
       name="first"
       required
-      value={contact?.first}
+      value={isEdit ? contact?.first : ''}
       autofocus
     />
   </label>
   <label for="last">
     LastName
-    <input type="text" id="last" name="last" required value={contact?.last} />
+    <input
+      type="text"
+      id="last"
+      name="last"
+      required
+      value={isEdit ? contact?.last : ''}
+    />
   </label>
   <label for="phone">
     Phone
@@ -33,7 +41,7 @@ console.log(contact);
       id="phone"
       name="phone"
       required
-      value={contact?.phone}
+      value={isEdit ? contact?.phone : ''}
     />
   </label>
 
@@ -44,7 +52,7 @@ console.log(contact);
       id="email"
       name="email"
       required
-      value={contact?.email}
+      value={isEdit ? contact?.email : ''}
     />
   </label>
 
@@ -52,6 +60,7 @@ console.log(contact);
     {
       contact ? (
         <button
+          type="button"
           style="background-color:orangered;cursor:pointer;"
           hx-confirm="Are you sure to delete this contact?"
           hx-delete={`/api/${contact?.id}/delete`}
@@ -63,9 +72,12 @@ console.log(contact);
         <a href="/contacts">Cancel</a>
       )
     }
-    {contact && contact.id ? 
-    <button hx-put=`/api/${contact?.id}/update`>Save</button>:
-    <button hx-post=`/api/add`>Save</button>
+    {
+      contact ? (
+        <button hx-put={`/api/${contact.id}/update`}>Save</button>
+      ) : (
+        <button>Save</button>
+      )
     }
   </div>
 </form>
