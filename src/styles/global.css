@@ -139,6 +139,10 @@ table {
   }
 }
 
+#searchForm {
+  padding: 0 5px;
+}
+
 #contactForm {
   border: 1px solid var(--foreground);
   padding: 40px;
