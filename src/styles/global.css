@@ -49,6 +49,24 @@ a {
   }
 }
 
+.button {
+  border: 1px solid var(--foreground);
+  max-width: max-content;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  &.right {
+    display: flex;
+    justify-content: end;
+  }
+}
+
 button {
   background: none;
   color: inherit;
@@ -68,7 +86,7 @@ img {
 main {
   width: 100%;
   margin: 0 auto;
-  padding: 20px 5px 0;
+  padding: 20px 5px;
   flex: 1;
   @media screen and (min-width: 40rem) {
     max-width: max-content;
@@ -97,35 +115,33 @@ section {
 
 #table-responsive {
   overflow-x: auto;
+  margin: 40px auto;
 }
 table {
   border-collapse: collapse;
-  margin: 25px auto;
   font-size: 0.9em;
   font-family: sans-serif;
   width: 100%;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  .actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  &,
+  th,
+  td {
+    border: 1px solid var(--foreground);
   }
-}
-table,
-th,
-td {
-  border: 1px solid var(--foreground);
-}
-tr:nth-child(even) {
-  background-color: #777;
-}
-th,
-td {
-  padding: 12px 15px;
+  tr:nth-child(even) {
+    background-color: #777;
+  }
+  th,
+  td {
+    padding: 12px 15px;
+  }
 }
 
 #contactForm {
+  border: 1px solid var(--foreground);
+  padding: 40px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -135,13 +151,17 @@ td {
     display: flex;
     justify-content: space-between;
     gap: 40px;
+    input {
+      padding: 3px 6px;
+      border-radius: 5px;
+    }
   }
 
   .actions {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
     a,
     button {
       border: 1px solid var(--foreground);
@@ -159,6 +179,7 @@ td {
   }
   .contact {
     border: 1px solid var(--foreground);
+    border-radius: 5px;
     padding: 30px;
     p {
       display: flex;
@@ -191,12 +212,17 @@ td {
 }
 
 .error {
-  display: none;
-  p {
-    text-align: right;
-    font-size: 0.8rem;
-    color: red;
-    padding: 0;
+  opacity: 0;
+  text-align: right;
+  font-size: 0.8rem;
+  color: orangered;
+  padding: 0;
+  transform: translateY(-1.5rem);
+  transition: 500ms ease-in-out;
+  margin: 0;
+  &.show {
+    opacity: 1;
+    transform: translateY(-1rem);
   }
 }
 footer {

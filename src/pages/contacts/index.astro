@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Contatti from '@/data/contacts';
+import Button from '@/components/Button.astro';
 
 const search = Astro.url.searchParams.get('q')?.toLowerCase();
 let contacts;
@@ -58,7 +59,9 @@ if (search) {
         </tbody>
       </table>
       </div>
-      <a href="/contacts/new">Add new contact &rarr;</a>
+      <div class="actions right">
+      <Button href="/contacts/new">Add new contact &rarr;</Button>
+      </div>
     )
   }
 

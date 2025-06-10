@@ -56,9 +56,12 @@ const isEdit = regex.test(Astro.url.pathname);
     />
   </label>
 
+  <p class="error">Invalid email</p>
+
   <div class="actions">
+    <a href="/contacts">&larr; Back</a>
     {
-      contact ? (
+      contact && contact.id && (
         <button
           type="button"
           style="background-color:orangered;cursor:pointer;"
@@ -68,8 +71,6 @@ const isEdit = regex.test(Astro.url.pathname);
         >
           Delete
         </button>
-      ) : (
-        <a href="/contacts">Cancel</a>
       )
     }
     {
@@ -81,19 +82,24 @@ const isEdit = regex.test(Astro.url.pathname);
     }
   </div>
 </form>
-<div class="error">
-  <p>Invalid email</p>
-</div>
 
 <style></style>
 
 <script>
   const form = document.querySelector('form')!;
+  const email = form.querySelector('#email');
   const error = document.querySelector('.error') as HTMLDivElement;
 
   form?.addEventListener('submit', (e) => {
     if (!form.email.value.includes('@')) {
-      error.style.display = 'block';
+      error.classList.add('show');
+      email?.addEventListener('input', () => {
+        if (form.email.value.includes('@')) {
+          error.classList.remove('show');
+        } else {
+          error.classList.add('show');
+        }
+      });
     }
   });
 </script>
