@@ -25,8 +25,9 @@ if (search) {
     <form id="searchForm" action="/contacts">
       <label for="search"
       >Search Term
-      <input id="search" type="search" name="q" value={search} autofocus /></label
-    >
+      </label
+      >
+      <input id="search" type="search" name="q" value={search} autofocus />
     <button>Search</button>
   </form>
   {!contacts.length && <h2>No results found</h2>}

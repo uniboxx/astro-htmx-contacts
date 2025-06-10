@@ -139,10 +139,6 @@ table {
   }
 }
 
-#searchForm {
-  padding: 0 5px;
-}
-
 #contactForm {
   border: 1px solid var(--foreground);
   padding: 40px;
@@ -200,7 +196,7 @@ table {
 
 #searchForm {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   margin: 20px 0;
@@ -213,6 +209,10 @@ table {
   button {
     border-radius: 10px;
     padding: 5px 10px;
+  }
+  input {
+    max-width: 8rem;
+    margin-left: auto;
   }
 }
 
