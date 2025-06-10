@@ -39,7 +39,6 @@ body {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  padding: 0 5px;
 }
 
 a {
