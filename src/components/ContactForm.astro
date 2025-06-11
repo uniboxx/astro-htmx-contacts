@@ -10,8 +10,6 @@ const regex = /\/edit$/;
 const isEdit = regex.test(Astro.url.pathname);
 // console.log(isEdit);
 // console.log(contact);
-const statusText = Astro.response.statusText;
-console.log(statusText);
 ---
 
 <form id="contactForm" action={action} method={method}>
@@ -84,3 +82,25 @@ console.log(statusText);
     }
   </div>
 </form>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const email = document.getElementById('email') as HTMLInputElement;
+  const error = document.querySelector('.error') as HTMLParagraphElement;
+
+  function checkEmail(e: Event) {
+    console.log('ciao email');
+    if (!email.value.includes('@')) {
+      error.classList.add('show');
+      email?.addEventListener('input', () => {
+        if (email.value.includes('@')) {
+          error.classList.remove('show');
+        } else {
+          error.classList.add('show');
+        }
+      });
+    }
+  }
+
+  form?.addEventListener('submit', checkEmail);
+</script>
