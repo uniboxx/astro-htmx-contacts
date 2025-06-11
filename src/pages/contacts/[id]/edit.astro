@@ -5,7 +5,6 @@ import ContactForm from '@/components/ContactForm.astro';
 
 const id = Number(Astro.params.id);
 const contact = Contatti.get(id);
-const action = ``;
 
 // console.log(id);
 // console.log(contact);
@@ -16,7 +15,7 @@ const action = ``;
     <h1>Edit contact</h1>
     {
       contact && contact.id ? (
-        <ContactForm action={action} contact={contact} />
+        <ContactForm hx-put={`/api/${contact?.id}/update`} contact={contact} />
       ) : (
         <h2>Contact not found</h2>
       )

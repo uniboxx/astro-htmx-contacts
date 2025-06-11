@@ -18,8 +18,6 @@ export async function DELETE(ctx: APIContext) {
         'HX-Location': '/contacts',
       },
     });
-
-    // return new Response();
   } catch (error: any) {
     console.log('Something went wrong!', error.message);
     return new Response(null, { status: 500, statusText: error.message });

@@ -5,5 +5,5 @@ import ContactForm from '@/components/ContactForm.astro';
 
 <Layout title="new contact">
   <h1>New contact</h1>
-  <ContactForm action="/api/add" method="POST" />
+  <ContactForm hx-post="/api/add" />
 </Layout>

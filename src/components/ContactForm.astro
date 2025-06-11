@@ -1,18 +1,31 @@
 ---
 import { type Contact } from '@/data/contacts';
+import { Icon } from 'astro-icon/components';
 interface Props {
-  action: string;
   contact?: Contact;
-  method?: string;
 }
-const { action, contact, method } = Astro.props;
+const { contact, ...props } = Astro.props;
 const regex = /\/edit$/;
 const isEdit = regex.test(Astro.url.pathname);
+
 // console.log(isEdit);
 // console.log(contact);
 ---
 
-<form id="contactForm" action={action} method={method}>
+<template id="deletePop">
+  <swal-icon type="warning" color="red"></swal-icon>
+  <swal-title>Delete Contact</swal-title>
+  <swal-html>
+    Are you sure you want to delete {contact?.first}&nbsp;{contact?.last}?
+  </swal-html>
+  <swal-button type="confirm"
+    ><Icon name="mdi:thumbs-up" />
+    Ok</swal-button
+  >
+  <swal-button type="cancel">No</swal-button>
+</template>
+
+<form id="contactForm" {...props}>
   <label for="first">
     FirstName
     <input
@@ -65,32 +78,28 @@ const isEdit = regex.test(Astro.url.pathname);
         <button
           type="button"
           style="background-color:orangered;cursor:pointer;"
-          hx-confirm="Are you sure to delete this contact?"
           hx-delete={`/api/${contact?.id}/delete`}
           hx-swap="none"
+          confirm-with-sweet-alert
         >
           Delete
         </button>
       )
     }
-    {
-      contact ? (
-        <button id="save" hx-put={`/api/${contact.id}/update`}>
-          Save
-        </button>
-      ) : (
-        <button id="save">Save</button>
-      )
-    }
+
+    <button id="save">Save</button>
   </div>
 </form>
 
 <script>
+  import Swal from 'sweetalert2';
+
   const save = document.getElementById('save') as HTMLButtonElement;
   const email = document.getElementById('email') as HTMLInputElement;
   const error = document.querySelector('.error') as HTMLParagraphElement;
 
   function checkEmail(e: Event) {
+    console.log('ciao email');
     if (!email.value.includes('@')) {
       error.classList.add('show');
       email?.addEventListener('input', () => {
@@ -104,4 +113,30 @@ const isEdit = regex.test(Astro.url.pathname);
   }
 
   save?.addEventListener('click', checkEmail);
+
+  document.addEventListener('htmx:confirm', function (e) {
+    interface ConfirmEvent extends Event {
+      detail: {
+        issueRequest: (confirmed: boolean) => void;
+      };
+    }
+    const customEvent = e as ConfirmEvent;
+    // The event is triggered on every trigger for a request, so we need to check if the element
+    // that triggered the request has a confirm question set via the hx-confirm attribute,
+    // if not we can return early and let the default behavior happen
+    const target = e.target as HTMLButtonElement;
+    if (!target.hasAttribute('confirm-with-sweet-alert')) return;
+
+    // This will prevent the request from being issued to later manually issue it
+    e.preventDefault();
+
+    Swal.fire({
+      template: '#deletePop',
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        // If the user confirms, we manually issue the request
+        customEvent.detail.issueRequest(true); // true to skip the built-in window.confirm()
+      }
+    });
+  });
 </script>

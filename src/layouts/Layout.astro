@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { Icon } from 'astro-icon/components';
 
 const { title } = Astro.props;
 ---
@@ -12,12 +13,14 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <script src="@/lib/htmx.min.js"></script>
+
+    <script src="@/lib/script.ts"></script>
   </head>
   <body hx-boost="true">
     <main>
       <slot />
     </main>
+
     <footer>
       <p>Simple testing app made with astro and a bit of htmx.</p>
       <p>
@@ -30,16 +33,3 @@ const { title } = Astro.props;
     </footer>
   </body>
 </html>
-
-<style>
-  header {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px 0;
-  }
-</style>
-
-<script>
-  import '@/lib/script';
-</script>
