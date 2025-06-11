@@ -75,21 +75,22 @@ const isEdit = regex.test(Astro.url.pathname);
     }
     {
       contact ? (
-        <button hx-put={`/api/${contact.id}/update`}>Save</button>
+        <button id="save" hx-put={`/api/${contact.id}/update`}>
+          Save
+        </button>
       ) : (
-        <button>Save</button>
+        <button id="save">Save</button>
       )
     }
   </div>
 </form>
 
 <script>
-  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const save = document.getElementById('save') as HTMLButtonElement;
   const email = document.getElementById('email') as HTMLInputElement;
   const error = document.querySelector('.error') as HTMLParagraphElement;
 
   function checkEmail(e: Event) {
-    console.log('ciao email');
     if (!email.value.includes('@')) {
       error.classList.add('show');
       email?.addEventListener('input', () => {
@@ -102,5 +103,5 @@ const isEdit = regex.test(Astro.url.pathname);
     }
   }
 
-  form?.addEventListener('submit', checkEmail);
+  save?.addEventListener('click', checkEmail);
 </script>
