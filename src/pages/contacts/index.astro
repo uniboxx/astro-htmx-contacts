@@ -24,10 +24,10 @@ if (search) {
     <h1>Contacts</h1>
     <form id="searchForm" action="/contacts">
       <label for="search"
-      >Search Term
+      >
       </label
       >
-      <input id="search" type="search" name="q" value={search} autofocus />
+      <input id="search" type="search" name="q" value={search} placeholder="Search term" autofocus />
     <button>Search</button>
   </form>
   {!contacts.length && <h2>No results found</h2>

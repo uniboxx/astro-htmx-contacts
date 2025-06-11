@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
 
 :root {
-  --background: hsl(51 32% 100%);
-  --foreground: hsl(0 0% 15%);
+  --background: hsl(281 66% 83%);
+  --foreground: hsl(283 88% 25%);
   --danger: hsl(0 94% 27%);
   @media (prefers-color-scheme: dark) {
-    --background: hsl(0 0% 15%);
-    --foreground: hsl(51 32% 100%);
+    --background: hsl(283 88% 25%);
+    --foreground: hsl(281 66% 83%);
   }
 }
 
@@ -98,10 +98,8 @@ h2 {
   }
   input {
     max-width: 8rem;
-    margin-left: auto;
     @media screen and (min-width: 40rem) {
       max-width: unset;
-      margin-left: unset;
     }
   }
 }
@@ -157,7 +155,10 @@ table {
     border: 1px solid var(--foreground);
   }
   tr:nth-child(even) {
-    background-color: #777;
+    background-color: #cfc8c8;
+    @media (prefers-color-scheme: dark) {
+      background-color: #4d4a4a;
+    }
   }
   th,
   td {
@@ -247,6 +248,9 @@ footer {
   p {
     font-size: 0.9rem;
     margin: 0.5rem;
-    color: #777;
+    color: #575353;
+    @media (prefers-color-scheme: dark) {
+      color: hsl(0, 4%, 61%);
+    }
   }
 }
