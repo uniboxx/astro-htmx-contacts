@@ -167,20 +167,21 @@ table {
 
 #contactForm {
   border: 1px solid var(--foreground);
-  padding: 40px;
+  padding: 40px 10px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  text-align: center;
   margin: 20px auto;
   label {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
     input {
       padding: 3px 6px;
       border-radius: 5px;
+      &:not([id='email']) {
+        width: 8rem;
+      }
     }
   }
 
@@ -198,6 +199,9 @@ table {
       align-items: center;
       text-decoration: none;
     }
+  }
+  @media screen and (min-width: 40rem) {
+    padding: 40px;
   }
 }
 #contact-details {
