@@ -16,11 +16,13 @@ const isEdit = regex.test(Astro.url.pathname);
   <swal-icon type="warning" color="red"></swal-icon>
   <swal-title>Delete Contact</swal-title>
   <swal-html>
-    Are you sure you want to delete {contact?.first}&nbsp;{contact?.last}?
+    Are you sure you want to delete <strong
+      >{contact?.first}&nbsp;{contact?.last}</strong
+    >?
   </swal-html>
   <swal-button type="confirm"
     ><Icon name="mdi:thumbs-up" />
-    Ok</swal-button
+    Yes</swal-button
   >
   <swal-button type="cancel">No</swal-button>
 </template>
@@ -132,6 +134,7 @@ const isEdit = regex.test(Astro.url.pathname);
 
     Swal.fire({
       template: '#deletePop',
+      reverseButtons: true,
     }).then(function (result) {
       if (result.isConfirmed) {
         // If the user confirms, we manually issue the request
